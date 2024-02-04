@@ -9,12 +9,19 @@ export const parseUrl = (url: string) => {
 }
 
 export const formatTimestamp = (timestamp: string) => {
-    const date = new Date(timestamp);
+  const date = new Date(timestamp)
 
-    const formatDateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = date.toLocaleDateString('en-US', formatDateOptions);
+  const formatDateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }
+  const formattedDate = date.toLocaleDateString('en-US', formatDateOptions)
 
-    const formatTimeOptions: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric' };
-    const formattedTime = date.toLocaleTimeString('en-US', formatTimeOptions);
-    return `${formattedDate} at ${formattedTime}`;
-};
+  const formatTimeOptions: Intl.DateTimeFormatOptions = {
+    hour: 'numeric',
+    minute: 'numeric'
+  }
+  const formattedTime = date.toLocaleTimeString('en-US', formatTimeOptions)
+  return `${formattedDate} at ${formattedTime}`
+}

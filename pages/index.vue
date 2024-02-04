@@ -1,22 +1,21 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { getFirstCommit } from "../server/firstCommit"
-import { formatTimestamp } from "../server/utils"
+import { getFirstCommit } from '../server/firstCommit'
+import { formatTimestamp } from '../server/utils'
 
 const pending = ref(false)
 const repositoryUrl = ref('')
-const firstCommit = ref<any | null>(null);
+const firstCommit = ref<any | null>(null)
 
 const fetchData = async (repositoryUrl: string) => {
   try {
-    firstCommit.value = await getFirstCommit(repositoryUrl);
-    return { firstCommit: firstCommit, error: null };
+    firstCommit.value = await getFirstCommit(repositoryUrl)
+    return { firstCommit: firstCommit, error: null }
   } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
+    console.error('Error fetching data:', error)
+    throw error
   }
-};
-
+}
 </script>
 
 <template>
@@ -70,10 +69,10 @@ const fetchData = async (repositoryUrl: string) => {
               </div>
               <div v-if="firstCommit">
                 <label
-                    for="repositoryUrl"
-                    class="flex justify-center pt-4 text-sm font-medium leading-6 text-green-500"
-                    >Done !
-                    </label>
+                  for="repositoryUrl"
+                  class="flex justify-center pt-4 text-sm font-medium leading-6 text-green-500"
+                  >Done !
+                </label>
               </div>
             </div>
           </div>
@@ -81,21 +80,31 @@ const fetchData = async (repositoryUrl: string) => {
             <div
               class="w-fit rounded-lg p-4 space-y-4 border-2 border-neutral-200 dark:border-neutral-700"
             >
-            <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center">
                 <label
-                    for="firstCommit"
-                    class="block text-sm font-medium leading-6 text-gray-900"
-                    >{{ firstCommit ? firstCommit.commit.author.name : 'Loading...' }}
+                  for="firstCommit"
+                  class="block text-sm font-medium leading-6 text-gray-900"
+                  >{{
+                    firstCommit ? firstCommit.commit.author.name : 'Loading...'
+                  }}
                 </label>
-                <p class="text-black text-xs">{{ formatTimestamp(firstCommit.commit.author.date) }} </p>
-            </div>
-            <div class="w-max space-y-4 top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 relative mt-2 rounded-md shadow-sm">
+                <p class="text-black text-xs">
+                  {{ formatTimestamp(firstCommit.commit.author.date) }}
+                </p>
+              </div>
+              <div
+                class="w-max space-y-4 top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 relative mt-2 rounded-md shadow-sm"
+              >
                 <div clas="flex justify-between items-end">
-                    <p class="text-gray-600 text-xs">
-                        <a target="_blank" :href="firstCommit.html_url">{{ firstCommit ? `${firstCommit.commit.message.slice(0, 64)}${firstCommit.commit.message.length > 64 ? '...' : ''}` : 'Loading...' }}</a>
-                    </p>
+                  <p class="text-gray-600 text-xs">
+                    <a target="_blank" :href="firstCommit.html_url">{{
+                      firstCommit
+                        ? `${firstCommit.commit.message.slice(0, 64)}${firstCommit.commit.message.length > 64 ? '...' : ''}`
+                        : 'Loading...'
+                    }}</a>
+                  </p>
                 </div>
-            </div>
+              </div>
             </div>
           </div>
         </div>
