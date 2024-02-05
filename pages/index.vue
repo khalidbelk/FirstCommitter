@@ -76,26 +76,46 @@ const fetchData = async (repositoryUrl: string) => {
               </div>
             </div>
           </div>
-          <div v-if="firstCommit" class="flex space-x-4">
+          <div v-if="firstCommit" class="w-full">
             <div
               class="w-fit rounded-lg p-4 space-y-4 border-2 border-neutral-200 dark:border-neutral-700"
             >
-              <div class="flex justify-between items-center">
-                <label
-                  for="firstCommit"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                  >{{
-                    firstCommit ? firstCommit.commit.author.name : 'Loading...'
-                  }}
-                </label>
-                <p class="text-black text-xs">
-                  {{ formatTimestamp(firstCommit.commit.author.date) }}
-                </p>
+              <div class="flex justify-between items-start">
+                <a
+                  v-if="firstCommit?.author?.avatar_url"
+                  target="_blank"
+                  :href="firstCommit.author.html_url"
+                >
+                  <img
+                    :src="firstCommit.author.avatar_url"
+                    alt="picture"
+                    class="w-20 rounded-lg"
+                  />
+                </a>
+                <div class="pl-5">
+                  <label
+                    for="firstCommit"
+                    class="block text-base font-medium leading-6 text-gray-900"
+                    >{{
+                      firstCommit
+                        ? firstCommit.commit.author.name
+                        : 'Loading...'
+                    }}
+                  </label>
+                  <p class="text-gray-700 text-base">
+                    @{{ firstCommit?.author?.login }}
+                  </p>
+                </div>
+                <div class="pt-20">
+                  <p class="text-black text-xs">
+                    {{ formatTimestamp(firstCommit.commit.author.date) }}
+                  </p>
+                </div>
               </div>
               <div
                 class="w-max space-y-4 top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 relative mt-2 rounded-md shadow-sm"
               >
-                <div clas="flex justify-between items-end">
+                <div class="flex justify-between items-end">
                   <p class="text-gray-600 text-xs">
                     <a target="_blank" :href="firstCommit.html_url">{{
                       firstCommit
