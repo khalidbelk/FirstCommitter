@@ -107,7 +107,7 @@ const fetchData = async (repositoryUrl: string) => {
                   </p>
                 </div>
                 <div class="pt-20">
-                  <p class="text-black text-xs">
+                  <p class="text-black text-xs font-bold">
                     {{ formatTimestamp(firstCommit.commit.author.date) }}
                   </p>
                 </div>
@@ -115,11 +115,12 @@ const fetchData = async (repositoryUrl: string) => {
               <div
                 class="w-max space-y-4 top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 relative mt-2 rounded-md shadow-sm"
               >
-                <div class="flex justify-between items-end">
-                  <p class="text-gray-600 text-xs">
+                <div class="flex justify-between items-end mt-10">
+                  <p class="pr-4">🔖</p>
+                  <p class="text-gray-700 text-base font-style: italic">
                     <a target="_blank" :href="firstCommit.html_url">{{
                       firstCommit
-                        ? `${firstCommit.commit.message.slice(0, 64)}${firstCommit.commit.message.length > 64 ? '...' : ''}`
+                        ? `${firstCommit.commit.message.slice(0, 50)}${firstCommit.commit.message.length > 50 ? '...' : ''}`
                         : 'Loading...'
                     }}</a>
                   </p>
