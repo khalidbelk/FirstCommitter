@@ -19,11 +19,12 @@ const fetchData = async (repositoryUrl: string) => {
 </script>
 
 <template>
+  <Navbar />
   <Transition>
     <div class="flex w-full dark:bg-neutral-900">
       <div class="w-full h-screen relative p-4">
         <div
-          class="absolute w-max space-y-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          class="absolute w-max space-y-4 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <div class="flex space-x-4">
             <div
