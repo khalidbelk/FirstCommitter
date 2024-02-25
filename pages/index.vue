@@ -83,12 +83,22 @@ const fetchData = async (repositoryUrl: string) => {
             >
               <div class="flex justify-between items-start">
                 <a
-                  v-if="firstCommit?.author?.avatar_url"
+                  v-if="firstCommit?.author && firstCommit?.author?.avatar_url"
                   target="_blank"
                   :href="firstCommit.author.html_url"
                 >
                   <img
                     :src="firstCommit.author.avatar_url"
+                    alt="picture"
+                    class="w-20 rounded-lg"
+                  />
+                </a>
+                <a
+                  v-else
+                  target="_blank"
+                >
+                  <img
+                    src="../assets/user/unavailable-pic.png"
                     alt="picture"
                     class="w-20 rounded-lg"
                   />
