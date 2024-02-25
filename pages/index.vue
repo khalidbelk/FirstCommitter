@@ -93,10 +93,7 @@ const fetchData = async (repositoryUrl: string) => {
                     class="w-20 rounded-lg"
                   />
                 </a>
-                <a
-                  v-else
-                  target="_blank"
-                >
+                <a v-else target="_blank">
                   <img
                     src="../assets/user/unavailable-pic.png"
                     alt="picture"
