@@ -9,7 +9,7 @@
                         <li
                         class="ml-4 text-sm text-gray-700 hover:text-gray-300 font-semibold"
                         >
-                        <NuxtLink to="/">About</NuxtLink>
+                        <NuxtLink to="/about">About</NuxtLink>
                         </li>
                     </ul>
                 </div>
