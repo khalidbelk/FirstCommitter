@@ -2,20 +2,52 @@
 import { ref } from 'vue'
 import { getFirstCommit } from '../server/firstCommit'
 import { formatTimestamp } from '../server/utils'
+import ToastNotification from '~/components/ToastNotification.vue'
+import { useInputValidation } from '@/composables/inputUtils'
+import { useToast } from '@/composables/useToast'
 
 const pending = ref(false)
-const repositoryUrl = ref('')
+const repositoryUrl = ref('github.com/ /')
+
 const firstCommit = ref<any | null>(null)
+const status = ref<number>(0)
+
+const validationError = ref(false)
+const showRequired = ref(false)
+const errorMessage = ref('')
+
+const showToastStatus = ref(false)
+const toastStatus = ref('')
+
+const { onInput, validateInput, isValidUrl } = useInputValidation(
+  repositoryUrl,
+  validationError,
+  showRequired,
+  errorMessage
+)
+const { showToast } = useToast(status, showToastStatus, toastStatus)
 
 const fetchData = async (repositoryUrl: string) => {
   try {
-    firstCommit.value = await getFirstCommit(repositoryUrl)
-    return { firstCommit: firstCommit, error: null }
+    const { firstCommit: fetchedCommit, status: fetchedStatus } =
+      await getFirstCommit(repositoryUrl)
+
+    firstCommit.value = fetchedCommit
+    status.value = fetchedStatus
+    showToast()
+
+    return { firstCommit, error: null }
   } catch (error) {
+    toastStatus.value = 'error'
+    showToastStatus.value = true
     console.error('Error fetching data:', error)
     throw error
   }
 }
+
+const isSubmitDisabled = computed(() => {
+  return !repositoryUrl.value.trim()
+})
 </script>
 
 <template>
@@ -28,7 +60,7 @@ const fetchData = async (repositoryUrl: string) => {
         >
           <div class="flex space-x-4">
             <div
-              class="w-fit rounded-lg p-4 space-y-4 border-2 border-neutral-200 dark:border-neutral-700"
+              class="w-fit rounded-lg p-8 space-y-4 border-2 border-neutral-200 dark:border-neutral-700"
             >
               <label
                 for="repositoryUrl"
@@ -42,7 +74,13 @@ const fetchData = async (repositoryUrl: string) => {
                   <input
                     type="text"
                     v-model="repositoryUrl"
-                    @keydown.enter.prevent="fetchData(repositoryUrl)"
+                    @input="onInput"
+                    @blur="validateInput"
+                    @keydown.enter.prevent="
+                      isSubmitDisabled || !isValidUrl(repositoryUrl)
+                        ? null
+                        : fetchData(repositoryUrl)
+                    "
                     name="repositoryUrl"
                     id="repositoryUrl"
                     class="block w-full rounded-md border-0 py-1.5 pl-10 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -54,8 +92,18 @@ const fetchData = async (repositoryUrl: string) => {
                     /></span>
                   </div>
                   <button
-                    type="button"
-                    @click.prevent="() => fetchData(repositoryUrl)"
+                    :disabled="isSubmitDisabled"
+                    @click.prevent="
+                      () => () => {
+                        if (isValidUrl(repositoryUrl)) {
+                          fetchData(repositoryUrl)
+                        }
+                      }
+                    "
+                    :class="{
+                      'bg-black': !isSubmitDisabled,
+                      'bg-gray-400 cursor-not-allowed': isSubmitDisabled
+                    }"
                     class="w-12 justify-center items-center bg-black hover:bg-slate-900 text-white py-1 px-3 cursor-pointer rounded-lg"
                   >
                     <Icon
@@ -68,12 +116,15 @@ const fetchData = async (repositoryUrl: string) => {
                   </button>
                 </div>
               </div>
-              <div v-if="firstCommit">
-                <label
-                  for="repositoryUrl"
-                  class="flex justify-center pt-4 text-sm font-medium leading-6 text-green-500"
-                  >Done !
-                </label>
+              <div v-if="showRequired">
+                <span class="text-red-500 text-sm">{{ errorMessage }}</span>
+              </div>
+              <div v-if="showToastStatus">
+                <ToastNotification
+                  position="bottom-right"
+                  group="br"
+                  :severity="toastStatus"
+                />
               </div>
             </div>
           </div>

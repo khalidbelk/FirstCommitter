@@ -80,7 +80,10 @@ export const getFirstCommitFromPage = async (
       }
     )
     const firstCommit = response.data[0]
-    return firstCommit
+    return {
+      firstCommit,
+      status: response.status
+    }
   } catch (error) {
     // Handle errors
     throw error

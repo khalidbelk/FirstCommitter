@@ -1,29 +1,22 @@
-import type { Notification } from '../types/notification'
+import type { Ref } from 'vue'
 
-export const useToast = () => {
-  const notifications = useState<Notification[]>('notifications', () => [])
+export function useToast(
+  status: Ref<number>,
+  showToastStatus: Ref<boolean>,
+  toastStatus: any
+) {
+  const showToast = () => {
+    showToastStatus.value = true
 
-  const add = (notification: Partial<Notification>) => {
-    const body = {
-      id: new Date().getTime().toString(),
-      ...notification
+    if (status.value === 200) {
+      toastStatus.value = 'success'
+    } else {
+      toastStatus.value = 'error'
     }
 
-    const index = notifications.value.findIndex((n: any) => n.id === body.id)
-
-    if (index === -1) {
-      notifications.value.push(body as Notification)
-    }
-
-    return body
+    setTimeout(() => {
+      showToastStatus.value = false
+    }, 3000)
   }
-
-  const remove = (id: string) => {
-    notifications.value = notifications.value.filter((n: any) => n.id !== id)
-  }
-
-  return {
-    add,
-    remove
-  }
+  return { showToast }
 }
