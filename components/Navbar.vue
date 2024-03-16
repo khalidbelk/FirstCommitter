@@ -25,7 +25,7 @@ const toggleDark = useToggle(isDark)
           width="55"
         />
         <img
-          v-else
+          v-if="!isDark"
           src="/assets/logo/lightmode_icon.png"
           alt="logo"
           width="55"
@@ -48,13 +48,20 @@ const toggleDark = useToggle(isDark)
         @click="toggleDark()"
         :title="isDark ? 'Turn on Light Mode' : 'Turn on Dark Mode'"
       >
-        <Icon
-          :name="isDark ? 'heroicons:sun' : 'heroicons:moon'"
-          size="20"
-          :class="
-            isDark ? 'text-white ml-10 mr-20' : 'text-gray-900 ml-10 mr-20'
-          "
-        />
+        <div v-if="isDark">
+          <Icon
+            name="heroicons:sun"
+            size="20"
+            class="text-gray-900 ml-10 mr-20 dark:text-white"
+          />
+        </div>
+        <div v-if="!isDark">
+          <Icon
+            name="heroicons:moon"
+            size="20"
+            class="text-gray-900 ml-10 mr-20 dark:text-white"
+          />
+        </div>
       </Button>
     </div>
   </nav>
