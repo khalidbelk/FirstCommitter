@@ -1,75 +1,16 @@
-# Nuxt 3 Minimal Starter
+# FirstCommitter 🕵️‍♂️ : Find the first commit of any public repository !
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+<br>
+<div align="center">
+  <img width="200" src="/assets/logo/LogoText.png"/>
+</div>
+<br>
+<div align="center">
+  <a href="https://github.com/khalidbelk/FirstCommitter/actions/workflows/build.yml">
+    <img src="https://github.com/khalidbelk/FirstCommitter/actions/workflows/build.yml/badge.svg?branch=main" alt="build">
+  </a>
+</div>
+<br>
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+FirstCommitter is a **free & open-source** tool that allows you to find the first commit of any **public Github repository** ! <br>
+Visit the website and start using it. Don't forget to support the project by giving a star ⭐️ !
