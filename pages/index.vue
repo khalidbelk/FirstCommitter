@@ -156,7 +156,11 @@ const isSubmitDisabled = computed(() => {
                     }}
                   </label>
                   <p class="text-gray-700 text-base dark:text-green-50">
-                    @{{ firstCommit?.author?.login }}
+                    {{
+                      firstCommit?.author?.login
+                        ? `@${firstCommit.author.login}`
+                        : '@ unavailable'
+                    }}
                   </p>
                 </div>
                 <div class="pt-20">
