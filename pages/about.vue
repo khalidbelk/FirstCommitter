@@ -1,8 +1,3 @@
-<script lang="ts">
-import { ref } from 'vue'
-import Navbar from '~/components/Navbar.vue'
-</script>
-
 <template>
   <Navbar />
   <div
