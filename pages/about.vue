@@ -1,8 +1,15 @@
+<script lang="ts">
+import { ref } from 'vue'
+import Navbar from '~/components/Navbar.vue'
+</script>
+
 <template>
   <Navbar />
-  <div class="grid px-80 justify-items-start py-16">
-    <h1 class="text-3xl text-black mb-14">About</h1>
-    <p class="text-left text-xl">
+  <div
+    class="w-full h-screen grid px-80 absolute mx-auto justify-items-start py-16 bg-white dark:bg-neutral-900"
+  >
+    <h1 class="text-3xl text-black mb-14 dark:text-white">About</h1>
+    <p class="text-left text-xl dark:text-white">
       Welcome to
       <a href="/"
         ><span class="text-sky-500 hover:text-sky-300">FirstCommitter</span></a
@@ -25,7 +32,7 @@
       effortlessly discover the trailblazers behind each repository. With us,
       the pioneers behind every project are within reach. Enjoy ⚡️ !
     </p>
-    <p class="text-left text-xl mt-12">
+    <p class="text-left text-xl mt-12 dark:text-white pb-96">
       Want to contribute by suggesting a new feature or found any issue ? 📥<br />
       Visit the project's repository by clicking on the
       <span><Icon name="mdi:github" size="30" /></span>

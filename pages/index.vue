@@ -64,7 +64,7 @@ const isSubmitDisabled = computed(() => {
             >
               <label
                 for="repositoryUrl"
-                class="block text-sm font-medium leading-6 text-gray-900"
+                class="dark:text-white block text-sm font-medium leading-6 text-gray-900"
                 >Repository's URL
               </label>
               <div
@@ -83,11 +83,11 @@ const isSubmitDisabled = computed(() => {
                     "
                     name="repositoryUrl"
                     id="repositoryUrl"
-                    class="block w-full rounded-md border-0 py-1.5 pl-10 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    class="block w-full rounded-md border-0 py-1.5 pl-10 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 dark:bg-neutral-900 dark:text-white placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="github.com/torvalds/linux"
                   />
                   <div class="absolute inset-y-0 left-0 flex items-center">
-                    <span class="text-gray-500 sm:text-sm"
+                    <span class="text-gray-500 sm:text-sm dark:text-white"
                       ><Icon name="heroicons-outline:globe-alt" size="24"
                     /></span>
                   </div>
@@ -100,19 +100,13 @@ const isSubmitDisabled = computed(() => {
                         }
                       }
                     "
-                    :class="{
-                      'bg-black': !isSubmitDisabled,
-                      'bg-gray-400 cursor-not-allowed': isSubmitDisabled
-                    }"
-                    class="w-12 justify-center items-center bg-black hover:bg-slate-900 text-white py-1 px-3 cursor-pointer rounded-lg"
+                    class="w-12 justify-center items-center bg-black dark:bg-amber-50 hover:bg-slate-900 text-white py-1 px-3 cursor-pointer rounded-lg"
                   >
                     <Icon
-                      v-if="pending"
-                      name="tabler:loader-2"
+                      name="tabler:arrow-right"
+                      class="dark:text-black"
                       size="24"
-                      class="animate-spin"
                     />
-                    <Icon v-else name="tabler:arrow-right" size="24" />
                   </button>
                 </div>
               </div>
@@ -154,19 +148,19 @@ const isSubmitDisabled = computed(() => {
                 <div class="pl-5">
                   <label
                     for="firstCommit"
-                    class="block text-base font-medium leading-6 text-gray-900"
+                    class="block text-base font-medium leading-6 text-gray-900 dark:text-green-200"
                     >{{
                       firstCommit
                         ? firstCommit.commit.author.name
                         : 'Loading...'
                     }}
                   </label>
-                  <p class="text-gray-700 text-base">
+                  <p class="text-gray-700 text-base dark:text-green-50">
                     @{{ firstCommit?.author?.login }}
                   </p>
                 </div>
                 <div class="pt-20">
-                  <p class="text-black text-xs font-bold">
+                  <p class="text-black text-xs font-bold dark:text-white">
                     {{ formatTimestamp(firstCommit.commit.author.date) }}
                   </p>
                 </div>
@@ -176,7 +170,9 @@ const isSubmitDisabled = computed(() => {
               >
                 <div class="flex justify-between items-end mt-10">
                   <p class="pr-4">🔖</p>
-                  <p class="text-gray-700 text-base font-style: italic">
+                  <p
+                    class="text-gray-700 text-base font-style: italic dark:text-white"
+                  >
                     <a target="_blank" :href="firstCommit.html_url">{{
                       firstCommit
                         ? `${firstCommit.commit.message.slice(0, 50)}${firstCommit.commit.message.length > 50 ? '...' : ''}`

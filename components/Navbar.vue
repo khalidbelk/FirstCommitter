@@ -1,13 +1,16 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useDark, useToggle } from '@vueuse/core'
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+</script>
 
 <template>
-  <nav
-    class="max-w-7xl h-20 px-4 mx-auto flex justify-between items-center z-10"
-  >
-    <div class="flex items-center">
+  <nav class="h-20 mx-auto flex justify-between dark:bg-neutral-900">
+    <div class="flex items-center ml-20">
       <ul class="flex items-center">
         <li
-          class="ml-4 text-sm text-gray-700 hover:text-gray-300 font-semibold"
+          class="ml-4 text-sm text-gray-700 hover:text-gray-300 font-semibold dark:text-white"
         >
           <NuxtLink to="/about">About</NuxtLink>
         </li>
@@ -15,7 +18,18 @@
     </div>
     <div class="flex items-center">
       <NuxtLink to="/">
-        <img src="/assets/logo/lightmode_icon.png" alt="logo" width="55" />
+        <img
+          v-if="isDark"
+          src="/assets/logo/darkmode_icon.png"
+          alt="logo"
+          width="55"
+        />
+        <img
+          v-else
+          src="/assets/logo/lightmode_icon.png"
+          alt="logo"
+          width="55"
+        />
       </NuxtLink>
     </div>
     <div class="flex items-center">
@@ -27,9 +41,21 @@
         <Icon
           name="mdi:github"
           size="30"
-          class="text-gray-700 group-hover:text-gray-900"
+          class="text-gray-700 group-hover:text-gray-900 dark:text-white"
         />
       </NuxtLink>
+      <Button
+        @click="toggleDark()"
+        :title="isDark ? 'Turn on Light Mode' : 'Turn on Dark Mode'"
+      >
+        <Icon
+          :name="isDark ? 'heroicons:sun' : 'heroicons:moon'"
+          size="20"
+          :class="
+            isDark ? 'text-white ml-10 mr-20' : 'text-gray-900 ml-10 mr-20'
+          "
+        />
+      </Button>
     </div>
   </nav>
 </template>
