@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 
-export function useToast(
+export function useToastNotification(
   status: Ref<number>,
   showToastStatus: Ref<boolean>,
   toastStatus: any

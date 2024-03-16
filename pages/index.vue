@@ -4,7 +4,7 @@ import { getFirstCommit } from '../server/firstCommit'
 import { formatTimestamp } from '../server/utils'
 import ToastNotification from '~/components/ToastNotification.vue'
 import { useInputValidation } from '@/composables/inputUtils'
-import { useToast } from '@/composables/useToast'
+import { useToastNotification } from '@/composables/useToast'
 
 const pending = ref(false)
 const repositoryUrl = ref('github.com/ /')
@@ -25,7 +25,7 @@ const { onInput, validateInput, isValidUrl } = useInputValidation(
   showRequired,
   errorMessage
 )
-const { showToast } = useToast(status, showToastStatus, toastStatus)
+const { showToast } = useToastNotification(status, showToastStatus, toastStatus)
 
 const fetchData = async (repositoryUrl: string) => {
   try {
