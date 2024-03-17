@@ -9,7 +9,7 @@ import { useToastNotification } from '@/composables/useToast'
 const pending = ref(false)
 const repositoryUrl = ref('github.com/ /')
 
-const firstCommit = ref<any | null>(null)
+const firstCommit = ref<any>('')
 const status = ref<number>(0)
 
 const validationError = ref(false)
@@ -29,6 +29,7 @@ const { showToast } = useToastNotification(status, showToastStatus, toastStatus)
 
 const fetchData = async (repositoryUrl: string) => {
   try {
+    pending.value = true
     const { firstCommit: fetchedCommit, status: fetchedStatus } =
       await getFirstCommit(repositoryUrl)
 
@@ -42,6 +43,8 @@ const fetchData = async (repositoryUrl: string) => {
     showToastStatus.value = true
     console.error('Error fetching data:', error)
     throw error
+  } finally {
+    pending.value = false
   }
 }
 
@@ -122,67 +125,89 @@ const isSubmitDisabled = computed(() => {
               </div>
             </div>
           </div>
-          <div v-if="firstCommit" class="w-full">
+
+          <div v-if="firstCommit || pending" class="w-full">
             <div
               class="w-fit rounded-lg p-4 space-y-4 border-2 border-neutral-200 dark:border-neutral-700"
             >
-              <div class="flex justify-between items-start">
-                <a
-                  v-if="firstCommit?.author && firstCommit?.author?.avatar_url"
-                  target="_blank"
-                  :href="firstCommit.author.html_url"
-                >
-                  <img
-                    :src="firstCommit.author.avatar_url"
-                    alt="picture"
-                    class="w-20 rounded-lg"
-                  />
-                </a>
-                <a v-else target="_blank">
-                  <img
-                    src="../assets/user/unavailable-pic.png"
-                    alt="picture"
-                    class="w-20 rounded-lg"
-                  />
-                </a>
-                <div class="pl-5">
-                  <label
-                    for="firstCommit"
-                    class="block text-base font-medium leading-6 text-gray-900 dark:text-green-200"
-                    >{{
-                      firstCommit
-                        ? firstCommit.commit.author.name
-                        : 'Loading...'
-                    }}
-                  </label>
-                  <p class="text-gray-700 text-base dark:text-green-50">
-                    {{
-                      firstCommit?.author?.login
-                        ? `@${firstCommit.author.login}`
-                        : '@ unavailable'
-                    }}
-                  </p>
+              <div v-if="pending" class="animate-pulse">
+                <div class="flex justify-between items-start">
+                  <div class="rounded-lg bg-slate-200 h-16 w-16"></div>
+                  <div class="pl-5 mt-1">
+                    <div class="h-3 mb-2 w-32 bg-slate-200 rounded"></div>
+                    <div class="h-3 w-24 bg-slate-200 rounded"></div>
+                  </div>
+                  <div class="mt-20 w-44 h-2 bg-slate-200 rounded"></div>
                 </div>
-                <div class="pt-20">
-                  <p class="text-black text-xs font-bold dark:text-white">
-                    {{ formatTimestamp(firstCommit.commit.author.date) }}
-                  </p>
+                <div
+                  class="w-max space-y-4 top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 relative mt-2 rounded-md shadow-sm"
+                >
+                  <div class="flex justify-between items-end mt-10">
+                    <div class="w-60 h-3 bg-slate-200 rounded"></div>
+                  </div>
                 </div>
               </div>
-              <div
-                class="w-max space-y-4 top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 relative mt-2 rounded-md shadow-sm"
-              >
-                <div class="flex justify-between items-end mt-10">
-                  <p class="pr-4">🔖</p>
-                  <p
-                    class="text-gray-700 text-base font-style: italic dark:text-white"
+              <div v-else>
+                <div class="flex justify-between items-start">
+                  <a
+                    v-if="
+                      firstCommit?.author && firstCommit?.author?.avatar_url
+                    "
+                    target="_blank"
+                    :href="firstCommit.author.html_url"
                   >
-                    <a target="_blank" :href="firstCommit.html_url">{{
-                      firstCommit
-                        ? `${firstCommit.commit.message.slice(0, 50)}${firstCommit.commit.message.length > 50 ? '...' : ''}`
-                        : 'Loading...'
-                    }}</a>
-                  </p>
+                    <img
+                      :src="firstCommit.author.avatar_url"
+                      alt="picture"
+                      class="w-20 rounded-lg"
+                    />
+                  </a>
+                  <a v-else target="_blank">
+                    <img
+                      src="../assets/user/unavailable-pic.png"
+                      alt="picture"
+                      class="w-20 rounded-lg"
+                    />
+                  </a>
+                  <div class="pl-5">
+                    <label
+                      for="firstCommit"
+                      class="block text-base font-medium leading-6 text-gray-900 dark:text-green-200"
+                      >{{
+                        firstCommit
+                          ? firstCommit.commit.author.name
+                          : 'Loading...'
+                      }}
+                    </label>
+                    <p class="text-gray-700 text-base dark:text-green-50">
+                      {{
+                        firstCommit?.author?.login
+                          ? `@${firstCommit.author.login}`
+                          : '@ unavailable'
+                      }}
+                    </p>
+                  </div>
+                  <div class="pt-20">
+                    <p class="text-black text-xs font-bold dark:text-white">
+                      {{ formatTimestamp(firstCommit.commit.author.date) }}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="w-max space-y-4 top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 relative mt-2 rounded-md shadow-sm"
+                >
+                  <div class="flex justify-between items-end mt-10">
+                    <p class="pr-4">🔖</p>
+                    <p
+                      class="text-gray-700 text-base font-style: italic dark:text-white"
+                    >
+                      <a target="_blank" :href="firstCommit.html_url">{{
+                        firstCommit
+                          ? `${firstCommit.commit.message.slice(0, 50)}${firstCommit.commit.message.length > 50 ? '...' : ''}`
+                          : 'Loading...'
+                      }}</a>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
