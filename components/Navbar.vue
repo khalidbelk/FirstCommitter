@@ -41,7 +41,7 @@ const toggleDark = useToggle(isDark)
         <Icon
           name="mdi:github"
           size="30"
-          class="text-gray-700 group-hover:text-gray-900 dark:text-white"
+          class="text-gray-700 group-hover:text-gray-900 dark:text-white animate-pulse"
         />
       </NuxtLink>
       <Button

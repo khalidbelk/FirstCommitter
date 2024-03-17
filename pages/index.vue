@@ -9,7 +9,7 @@ import { useToastNotification } from '@/composables/useToast'
 const pending = ref(false)
 const repositoryUrl = ref('github.com/ /')
 
-const firstCommit = ref<any>('')
+const firstCommit = ref<any | null>(null)
 const status = ref<number>(0)
 
 const validationError = ref(false)
@@ -105,11 +105,20 @@ const isSubmitDisabled = computed(() => {
                     "
                     class="w-12 justify-center items-center bg-black dark:bg-amber-50 hover:bg-slate-900 text-white py-1 px-3 cursor-pointer rounded-lg"
                   >
-                    <Icon
-                      name="tabler:arrow-right"
-                      class="dark:text-black"
-                      size="24"
-                    />
+                    <div v-if="pending">
+                      <Icon
+                        name="tabler:loader-2"
+                        class="dark:text-black animate-spin"
+                        size="24"
+                      />
+                    </div>
+                    <div v-else>
+                      <Icon
+                        name="tabler:arrow-right"
+                        class="dark:text-black"
+                        size="24"
+                      />
+                    </div>
                   </button>
                 </div>
               </div>
