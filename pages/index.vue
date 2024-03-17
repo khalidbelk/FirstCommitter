@@ -97,7 +97,7 @@ const isSubmitDisabled = computed(() => {
                   <button
                     :disabled="isSubmitDisabled"
                     @click.prevent="
-                      () => () => {
+                      () => {
                         if (isValidUrl(repositoryUrl)) {
                           fetchData(repositoryUrl)
                         }
