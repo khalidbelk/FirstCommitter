@@ -34,7 +34,7 @@ To run locally, you can use the following commands:
 
 Install dependencies:
 
-```npm run install```
+```npm install```
 
 Start the development server:
 
