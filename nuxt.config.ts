@@ -13,5 +13,8 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon-fc.png' }
       ]
     }
-  }
+  },
+  plugins: [
+    '~/plugins/vercel-analytics.ts',
+  ],
 })

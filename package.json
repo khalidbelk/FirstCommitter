@@ -23,6 +23,7 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.17",
     "@heroicons/vue": "^2.1.1",
+    "@vercel/analytics": "^1.2.2",
     "@vueuse/core": "^10.9.0",
     "axios": "^1.6.7",
     "primevue": "^3.49.1"
