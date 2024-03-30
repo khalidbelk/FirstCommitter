@@ -16,7 +16,7 @@
 <br>
 
 FirstCommitter is a **free & open-source** tool that allows you to find the first commit of any **public Github repository** ! <br>
-Visit the [website](https://firstcommitter.vercel.app) and start using it :) 
+Visit the [website](https://firstcommitter.com) and start using it :) 
 
 <br>Don't forget to support the project by **starring** ⭐️ !
 <br>
