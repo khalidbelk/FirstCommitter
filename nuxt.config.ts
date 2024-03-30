@@ -1,9 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', 'nuxt-icon', 'nuxt-primevue', '@nuxtjs/sitemap'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    'nuxt-icon',
+    'nuxt-primevue',
+    '@nuxtjs/sitemap'
+  ],
   site: {
-    url: 'https://firstcommitter.com',
+    url: 'https://firstcommitter.com'
   },
   app: {
     head: {
@@ -12,12 +17,8 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { hid: 'description', name: 'description', content: '' }
       ],
-      link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon-fc.png' }
-      ]
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon-fc.png' }]
     }
   },
-  plugins: [
-    '~/plugins/vercel-analytics.ts',
-  ],
+  plugins: ['~/plugins/vercel-analytics.ts']
 })
