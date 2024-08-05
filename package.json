@@ -13,7 +13,7 @@
   "devDependencies": {
     "@nuxtjs/sitemap": "^5.1.2",
     "@nuxtjs/tailwindcss": "^6.11.2",
-    "nuxt": "^3.9.3",
+    "nuxt": "^3.12.4",
     "nuxt-icon": "^0.6.8",
     "nuxt-primevue": "^0.3.1",
     "prettier": "3.2.4",
