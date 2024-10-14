@@ -27,6 +27,6 @@
     "@vercel/analytics": "^1.2.2",
     "@vueuse/core": "^10.9.0",
     "axios": "^1.6.7",
-    "primevue": "^3.49.1"
+    "primevue": "^4.1.0"
   }
 }
