@@ -5,6 +5,7 @@ on:
     branches:
       - "main"
       - "dev"
+      - "update-dependencies"
   pull_request:
     branches: [ "main" ]
 
@@ -15,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x, 20.x]
 
     steps:
     - uses: actions/checkout@v3
