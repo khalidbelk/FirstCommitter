@@ -8,7 +8,7 @@ export const parseInput = (input: string) => {
     const [_, owner, repo] = match
     return { owner, repo }
   } else {
-    throw new Error('Invalid GitHub URL format')
+    throw new Error('Invalid GitHub repository format')
   }
 }
 
