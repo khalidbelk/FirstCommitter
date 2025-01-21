@@ -19,19 +19,8 @@ export function useInputValidation(
     }
   }
 
-  const isValidUrl = (repositoryUrl: string) => {
-    const prefixes = [
-      'https://www.github.com/',
-      'https://github.com/',
-      'www.github.com/',
-      'github.com/'
-    ]
-    return prefixes.some((prefix) => repositoryUrl.startsWith(prefix))
-  }
-
   return {
     onInput,
-    validateInput,
-    isValidUrl
+    validateInput
   }
 }

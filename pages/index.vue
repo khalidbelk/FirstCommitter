@@ -7,7 +7,7 @@ import { useInputValidation } from '@/composables/inputUtils'
 import { useToastNotification } from '@/composables/useToast'
 
 const pending = ref(false)
-const repositoryUrl = ref('')
+const repository = ref('')
 
 const firstCommit = ref<any | null>(null)
 const status = ref<number>(0)
@@ -19,8 +19,8 @@ const errorMessage = ref('')
 const showToastStatus = ref(false)
 const toastStatus = ref('')
 
-const { onInput, validateInput, isValidUrl } = useInputValidation(
-  repositoryUrl,
+const { onInput, validateInput } = useInputValidation(
+  repository,
   validationError,
   showRequired,
   errorMessage
@@ -48,9 +48,7 @@ const fetchData = async (repositoryUrl: string) => {
   }
 }
 
-const isSubmitDisabled = computed(() => {
-  return !repositoryUrl.value.trim()
-})
+const isSubmitDisabled = computed(() => !repository.value.trim())
 </script>
 
 <template>
@@ -76,13 +74,11 @@ const isSubmitDisabled = computed(() => {
                 <div class="flex space-x-2">
                   <input
                     type="text"
-                    v-model="repositoryUrl"
+                    v-model="repository"
                     @input="onInput"
                     @blur="validateInput"
                     @keydown.enter.prevent="
-                      isSubmitDisabled || !isValidUrl(repositoryUrl)
-                        ? null
-                        : fetchData(repositoryUrl)
+                      isSubmitDisabled ? null : fetchData(repository)
                     "
                     name="repositoryUrl"
                     id="repositoryUrl"
@@ -96,13 +92,7 @@ const isSubmitDisabled = computed(() => {
                   </div>
                   <button
                     :disabled="isSubmitDisabled"
-                    @click.prevent="
-                      () => {
-                        if (isValidUrl(repositoryUrl)) {
-                          fetchData(repositoryUrl)
-                        }
-                      }
-                    "
+                    @click.prevent="() => fetchData(repository)"
                     class="w-12 justify-center items-center bg-black dark:bg-amber-50 hover:bg-slate-900 text-white py-1 px-3 cursor-pointer rounded-lg"
                   >
                     <div v-if="pending">
