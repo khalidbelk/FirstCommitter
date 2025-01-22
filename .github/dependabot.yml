@@ -9,4 +9,4 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    target-branch: "update-dependencies"
+    target-branch: "dev"
