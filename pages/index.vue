@@ -7,7 +7,7 @@ import { useInputValidation } from '@/composables/inputUtils'
 import { useToastNotification } from '@/composables/useToast'
 
 const pending = ref(false)
-const repositoryUrl = ref('')
+const repository = ref('')
 
 const firstCommit = ref<any | null>(null)
 const status = ref<number>(0)
@@ -19,8 +19,8 @@ const errorMessage = ref('')
 const showToastStatus = ref(false)
 const toastStatus = ref('')
 
-const { onInput, validateInput, isValidUrl } = useInputValidation(
-  repositoryUrl,
+const { onInput, validateInput, isValidRepository } = useInputValidation(
+  repository,
   validationError,
   showRequired,
   errorMessage
@@ -48,9 +48,7 @@ const fetchData = async (repositoryUrl: string) => {
   }
 }
 
-const isSubmitDisabled = computed(() => {
-  return !repositoryUrl.value.trim()
-})
+const isSubmitDisabled = computed(() => !repository.value.trim())
 </script>
 
 <template>
@@ -76,13 +74,13 @@ const isSubmitDisabled = computed(() => {
                 <div class="flex space-x-2">
                   <input
                     type="text"
-                    v-model="repositoryUrl"
+                    v-model="repository"
                     @input="onInput"
                     @blur="validateInput"
                     @keydown.enter.prevent="
-                      isSubmitDisabled || !isValidUrl(repositoryUrl)
+                      isSubmitDisabled || !isValidRepository()
                         ? null
-                        : fetchData(repositoryUrl)
+                        : fetchData(repository)
                     "
                     name="repositoryUrl"
                     id="repositoryUrl"
@@ -90,16 +88,16 @@ const isSubmitDisabled = computed(() => {
                     placeholder="github.com/vuejs/vue"
                   />
                   <div class="absolute inset-y-0 left-0 flex items-center">
-                    <span class="text-gray-500 sm:text-sm dark:text-white"
-                      ><Icon name="heroicons-outline:globe-alt" size="24"
-                    /></span>
+                    <span class="text-gray-500 sm:text-sm dark:text-white">
+                      <Icon name="heroicons-outline:globe-alt" size="24" />
+                    </span>
                   </div>
                   <button
                     :disabled="isSubmitDisabled"
                     @click.prevent="
                       () => {
-                        if (isValidUrl(repositoryUrl)) {
-                          fetchData(repositoryUrl)
+                        if (isValidRepository()) {
+                          fetchData(repository)
                         }
                       }
                     "

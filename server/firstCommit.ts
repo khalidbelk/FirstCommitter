@@ -4,17 +4,17 @@ import {
   getDefaultBranch,
   getFirstCommitFromPage
 } from './githubApi'
-import { parseUrl } from './utils'
+import { parseInput } from './utils'
 
-export const getFirstCommit = async (url: string) => {
-  const { author, repo } = parseUrl(url)
-  const { branch } = await getDefaultBranch(author, repo)
-  const commitsNumber = await getCommitsNumber(author, repo, branch)
+export const getFirstCommit = async (repository: string) => {
+  const { owner, repo } = parseInput(repository)
+  const { branch } = await getDefaultBranch(owner, repo)
+  const commitsNumber = await getCommitsNumber(owner, repo, branch)
   //const repositorySha = await getRepositorySha(author, repo, branch)
   //const oldestPageUrl = `https://github.com/${author}/${repo}/commits/${branch}?after=${repositorySha}+${commitsNumber - 34}`
   //console.log('Oldest Page Url: ', oldestPageUrl)
   const { firstCommit, status } = await getFirstCommitFromPage(
-    author,
+    owner,
     repo,
     branch,
     commitsNumber
