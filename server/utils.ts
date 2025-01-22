@@ -1,10 +1,13 @@
-export const parseUrl = (url: string) => {
-  const match = url.match(/github\.com\/([^\/]+)\/([^\/]+)$/)
+import { REPOSITORY_REGEX } from '@/shared/utils/constants'
+
+export const parseInput = (input: string) => {
+  const match = input.match(REPOSITORY_REGEX)
+
   if (match) {
-    const [_, author, repo] = match
-    return { author, repo }
+    const [_, owner, repo] = match
+    return { owner, repo }
   } else {
-    throw new Error('Invalid GitHub URL format')
+    throw new Error('Invalid GitHub repository format')
   }
 }
 
