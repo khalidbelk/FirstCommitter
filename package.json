@@ -15,7 +15,7 @@
     "@nuxtjs/tailwindcss": "^6.12.1",
     "nuxt": "^3.12.4",
     "nuxt-icon": "^0.6.8",
-    "prettier": "3.3.3",
+    "prettier": "3.4.2",
     "nuxt-primevue": "^3.0.0",
     "typescript": "^5.5.4",
     "vue": "^3.4.14",
