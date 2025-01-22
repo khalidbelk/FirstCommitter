@@ -1,5 +1,4 @@
-const REPOSITORY_REGEX =
-  /^(?:https?:\/\/)?(?:www\.)?(?:github\.com\/)?([^/]+)\/([^/]+)$/
+import { REPOSITORY_REGEX } from '@/shared/utils/constants'
 
 export const parseInput = (input: string) => {
   const match = input.match(REPOSITORY_REGEX)

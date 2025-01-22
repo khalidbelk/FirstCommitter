@@ -19,7 +19,7 @@ const errorMessage = ref('')
 const showToastStatus = ref(false)
 const toastStatus = ref('')
 
-const { onInput, validateInput } = useInputValidation(
+const { onInput, validateInput, isValidRepository } = useInputValidation(
   repository,
   validationError,
   showRequired,
@@ -78,7 +78,9 @@ const isSubmitDisabled = computed(() => !repository.value.trim())
                     @input="onInput"
                     @blur="validateInput"
                     @keydown.enter.prevent="
-                      isSubmitDisabled ? null : fetchData(repository)
+                      isSubmitDisabled || !isValidRepository()
+                        ? null
+                        : fetchData(repository)
                     "
                     name="repositoryUrl"
                     id="repositoryUrl"
@@ -86,13 +88,19 @@ const isSubmitDisabled = computed(() => !repository.value.trim())
                     placeholder="github.com/vuejs/vue"
                   />
                   <div class="absolute inset-y-0 left-0 flex items-center">
-                    <span class="text-gray-500 sm:text-sm dark:text-white"
-                      ><Icon name="heroicons-outline:globe-alt" size="24"
-                    /></span>
+                    <span class="text-gray-500 sm:text-sm dark:text-white">
+                      <Icon name="heroicons-outline:globe-alt" size="24" />
+                    </span>
                   </div>
                   <button
                     :disabled="isSubmitDisabled"
-                    @click.prevent="() => fetchData(repository)"
+                    @click.prevent="
+                      () => {
+                        if (isValidRepository()) {
+                          fetchData(repository)
+                        }
+                      }
+                    "
                     class="w-12 justify-center items-center bg-black dark:bg-amber-50 hover:bg-slate-900 text-white py-1 px-3 cursor-pointer rounded-lg"
                   >
                     <div v-if="pending">
