@@ -11,7 +11,7 @@
     "format": "prettier --write \"**/*.{js,ts,vue}\""
   },
   "devDependencies": {
-    "@nuxtjs/sitemap": "^6.1.2",
+    "@nuxtjs/sitemap": "^7.2.3",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "nuxt": "^3.12.4",
     "nuxt-icon": "^0.6.8",
